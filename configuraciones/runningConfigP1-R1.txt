@@ -1,0 +1,125 @@
+Current configuration : 1807 bytes
+!
+! Last configuration change at 15:48:23 UTC Thu Jun 30 2022
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+ip cef
+!
+!
+!
+ip dhcp excluded-address 80.73.1.1
+ip dhcp excluded-address 10.72.0.1
+ip dhcp excluded-address 10.73.0.1
+!
+ip dhcp pool pool102
+ network 80.73.1.0 255.255.255.0
+ default-router 80.73.1.1
+!
+ip dhcp pool pool100
+ network 10.72.0.0 255.255.0.0
+ default-router 10.72.0.1
+!
+ip dhcp pool pool101
+ network 10.73.0.0 255.255.0.0
+ default-router 10.73.0.1
+!
+!
+!
+no ipv6 cef
+multilink bundle-name authenticated
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FCZ18237050
+!
+!
+!
+!
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.100
+ encapsulation dot1Q 100
+ ip address 10.72.0.1 255.255.0.0
+!
+interface GigabitEthernet0/0.101
+ encapsulation dot1Q 101
+ ip address 10.73.0.1 255.255.0.0
+!
+interface GigabitEthernet0/0.102
+ encapsulation dot1Q 102
+ ip address 80.73.1.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+scheduler allocate 20000 1000
+!
+end

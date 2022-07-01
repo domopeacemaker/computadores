@@ -1,0 +1,143 @@
+Current configuration : 3370 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname O2-S2
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$r87B$ShSpf5ZkDbAIZcENKx5Q8.
+!
+username admin secret 5 $1$Ha2w$vf//d21UwpYT5zkZsaCrn/
+!
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+ip domain-name o2.acme.com
+!
+!
+crypto pki trustpoint TP-self-signed-1829113984
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1829113984
+ revocation-check none
+ rsakeypair TP-self-signed-1829113984
+!
+!
+crypto pki certificate chain TP-self-signed-1829113984
+ certificate self-signed 01
+  30820249 308201B2 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 31383239 31313339 3834301E 170D3933 30333031 30303032
+  30305A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 38323931
+  31333938 3430819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281
+  8100D635 1AA394F4 C5C3EEDD 1176F6CB 13BCD67A 8DF7F98C E1DC48E5 0F5208E1
+  F3789CCD 4925E5E7 8A194497 0C2F5FC7 49D4962F C1464977 AF645FB7 BFD10929
+  3F165A01 F67F63DD 8780899A 4B2FE27C 9487A5EA A3CD3D9C CA5A08D8 25B21660
+  42FE3558 72B282AF E87EEE8C DE88F2FA 84A34147 5815F35D F636E3D9 F4EFCC26
+  ED110203 010001A3 71306F30 0F060355 1D130101 FF040530 030101FF 301C0603
+  551D1104 15301382 114F322D 53322E6F 322E6163 6D652E63 6F6D301F 0603551D
+  23041830 168014B0 887765FA 013FBED3 117F3E56 7A1CFFD5 3F30DF30 1D060355
+  1D0E0416 0414B088 7765FA01 3FBED311 7F3E567A 1CFFD53F 30DF300D 06092A86
+  4886F70D 01010405 00038181 0066EB91 0B0CF12F CCC3724C 2D7D7419 07CD833A
+  89A04B5E FE3D8A66 CF7DF0DB 31AD19D6 4867DA26 15B8C09F B385A656 BBF747AD
+  5ADAB2EE 2E2842F4 9FCD4DE9 6FB011BC 2FE0015C 33E5FBFE FCADB61A E3F6909B
+  CF3B74CD 7EF6B85B CC6E7B76 485A0CB1 6754C156 3F2B60F6 EF9FA44D 098960E6
+  F6E85E47 87EAD25A 00EF48D6 A1
+  quit
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 100
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 103
+ switchport mode access
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ ip address 192.168.1.49 255.255.255.0
+!
+ip http server
+ip http secure-server
+!
+line con 0
+line vty 0 4
+ password 7 01100F175804
+ login local
+ transport input telnet ssh
+line vty 5 15
+ password 7 01100F175804
+ login local
+ transport input telnet ssh
+!
+end

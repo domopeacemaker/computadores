@@ -1,0 +1,79 @@
+enable
+conf term
+enable secret cisco
+hostname O2-R1
+line vty 0 15
+password cisco
+login
+exit
+
+service password-encryption
+ip domain-name o2.acme.com
+crypto key generate rsa
+1024
+username admin secret vc0910$$
+line vty 0 15
+transport input telnet ssh
+login local
+exit
+exit
+copy run start
+
+config term
+interface gigabitEthernet 0/0
+no shutdown
+
+interface gigabitEthernet 0/0.100
+encapsulation dot1Q 100
+ip address 10.69.0.1 255.255.254.0
+no shutdown
+
+interface gigabitEthernet 0/0.101
+encapsulation dot1Q 101
+ip address 10.69.2.1 255.255.255.0
+no shutdown
+
+interface gigabitEthernet 0/0.102
+encapsulation dot1Q 102
+ip address 10.69.3.1 255.255.255.0
+no shutdown
+
+interface gigabitEthernet 0/0.103
+encapsulation dot1Q 103
+ip address 10.69.4.1 255.255.255.128
+no shutdown
+
+ip dhcp pool pool100
+network 10.69.0.0 255.255.254.0
+default-router 10.69.0.1
+
+ip dhcp pool pool101
+network 10.69.2.0 255.255.255.0
+default-router 10.69.2.1
+
+ip dhcp pool pool102
+network 10.69.3.0 255.255.255.0
+default-router 10.69.3.1
+
+ip dhcp pool pool103
+network 10.69.4.0 255.255.255.128
+default-router 10.69.4.1
+exit
+
+ip dhcp excluded-address 10.69.0.1
+ip dhcp excluded-address 10.69.2.1
+ip dhcp excluded-address 10.69.3.1
+ip dhcp excluded-address 10.69.4.1
+
+
+interface gigabitEthernet 0/1
+ip address 192.168.0.1 255.255.255.252
+no shutdown
+
+exit
+
+router eigrp 777
+network 192.168.0.0 0.0.0.3
+network 10.69.0.0 0.0.31.255
+
+

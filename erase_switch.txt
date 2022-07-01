@@ -1,0 +1,11 @@
+flash_init
+dir flash:
+del flash:config.txt
+y
+del flash:vlan.dat
+y
+dir flash:
+
+
+reset
+y
